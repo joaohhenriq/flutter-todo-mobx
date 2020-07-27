@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todomobx/stores/login_store.dart';
 import 'package:todomobx/widgets/custom_icon_button.dart';
 import 'package:todomobx/widgets/custom_text_field.dart';
 
@@ -11,6 +12,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+
+  LoginStore _loginStore = LoginStore();
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       hint: 'E-mail',
                       prefix: Icon(Icons.account_circle),
                       textInputType: TextInputType.emailAddress,
-                      onChanged: (email){
-
-                      },
+                      onChanged: _loginStore.setEmail,
                       enabled: true,
                     ),
                     const SizedBox(height: 16,),
@@ -43,9 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       hint: 'Senha',
                       prefix: Icon(Icons.lock),
                       obscure: true,
-                      onChanged: (pass){
-
-                      },
+                      onChanged: _loginStore.setPassword,
                       enabled: true,
                       suffix: CustomIconButton(
                         radius: 32,
