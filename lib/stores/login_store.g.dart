@@ -23,12 +23,12 @@ mixin _$LoginStore on _LoginStore, Store {
       (_$isPasswordValidComputed ??= Computed<bool>(() => super.isPasswordValid,
               name: '_LoginStore.isPasswordValid'))
           .value;
-  Computed<bool> _$isFormValidComputed;
+  Computed<Function> _$loginPresssedComputed;
 
   @override
-  bool get isFormValid =>
-      (_$isFormValidComputed ??= Computed<bool>(() => super.isFormValid,
-              name: '_LoginStore.isFormValid'))
+  Function get loginPresssed =>
+      (_$loginPresssedComputed ??= Computed<Function>(() => super.loginPresssed,
+              name: '_LoginStore.loginPresssed'))
           .value;
 
   final _$emailAtom = Atom(name: '_LoginStore.email');
@@ -61,6 +61,58 @@ mixin _$LoginStore on _LoginStore, Store {
     });
   }
 
+  final _$hidePasswordAtom = Atom(name: '_LoginStore.hidePassword');
+
+  @override
+  bool get hidePassword {
+    _$hidePasswordAtom.reportRead();
+    return super.hidePassword;
+  }
+
+  @override
+  set hidePassword(bool value) {
+    _$hidePasswordAtom.reportWrite(value, super.hidePassword, () {
+      super.hidePassword = value;
+    });
+  }
+
+  final _$loadingAtom = Atom(name: '_LoginStore.loading');
+
+  @override
+  bool get loading {
+    _$loadingAtom.reportRead();
+    return super.loading;
+  }
+
+  @override
+  set loading(bool value) {
+    _$loadingAtom.reportWrite(value, super.loading, () {
+      super.loading = value;
+    });
+  }
+
+  final _$loggedInAtom = Atom(name: '_LoginStore.loggedIn');
+
+  @override
+  bool get loggedIn {
+    _$loggedInAtom.reportRead();
+    return super.loggedIn;
+  }
+
+  @override
+  set loggedIn(bool value) {
+    _$loggedInAtom.reportWrite(value, super.loggedIn, () {
+      super.loggedIn = value;
+    });
+  }
+
+  final _$loginAsyncAction = AsyncAction('_LoginStore.login');
+
+  @override
+  Future<void> login() {
+    return _$loginAsyncAction.run(() => super.login());
+  }
+
   final _$_LoginStoreActionController = ActionController(name: '_LoginStore');
 
   @override
@@ -86,13 +138,27 @@ mixin _$LoginStore on _LoginStore, Store {
   }
 
   @override
+  void changePasswordVisibility() {
+    final _$actionInfo = _$_LoginStoreActionController.startAction(
+        name: '_LoginStore.changePasswordVisibility');
+    try {
+      return super.changePasswordVisibility();
+    } finally {
+      _$_LoginStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 email: ${email},
 password: ${password},
+hidePassword: ${hidePassword},
+loading: ${loading},
+loggedIn: ${loggedIn},
 isEmailValid: ${isEmailValid},
 isPasswordValid: ${isPasswordValid},
-isFormValid: ${isFormValid}
+loginPresssed: ${loginPresssed}
     ''';
   }
 }
