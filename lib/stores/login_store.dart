@@ -36,9 +36,15 @@ abstract class _LoginStore with Store {
 
     await Future.delayed(Duration(seconds: 2));
 
+    email = "";
+    password = "";
+
     loading = false;
     loggedIn = true;
   }
+
+  @action
+  void logout() => loggedIn = false;
 
   // computed => when you process observables, work with their values to create something new
 

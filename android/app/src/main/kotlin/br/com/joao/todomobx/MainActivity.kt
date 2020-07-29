@@ -1,4 +1,4 @@
-package br.com.ciolfi.todomobx
+package br.com.joao.todomobx
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity
